@@ -46,6 +46,15 @@ const deliveryPersonSchema = new mongoose.Schema({
     description: String,
     price: Number
   });
+  // schéma pour les achats
+   const purchaseSchema = new mongoose.Schema({
+    client: { type: mongoose.Schema.Types.ObjectId, ref: 'Client' }, // Référence vers le client
+    products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }], // Liste des produits achetés
+    deliveryPerson: { type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPerson' } // Référence vers le livreur
+   });
+
+  // modèle pour les achats
+  const Purchase = mongoose.model('Purchase', purchaseSchema);
   
   //  les modèles à partir des schémas définis
   const Client = mongoose.model('Client', clientSchema);
@@ -54,4 +63,4 @@ const deliveryPersonSchema = new mongoose.Schema({
   const Product = mongoose.model('Product', productSchema);
   
   // Exporter les modèles pour les utiliser ailleurs dans l'application
-  module.exports = { Client, DeliveryPerson, Restaurant, Product };
+  module.exports = { Client, DeliveryPerson, Restaurant, Product, Purchase };
